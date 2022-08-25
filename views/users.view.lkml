@@ -31,10 +31,6 @@ view: users {
     sql: ${age} ;;
   }
 
-  measure: average_age {
-    type: average
-    sql: ${age} ;;
-  }
 
   dimension: city {
     type: string
@@ -74,6 +70,23 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${TABLE}.first_name||' '||${TABLE}.last_name ;;
+  }
+
+  dimension: full_name_lenght {
+    type: number
+    sql: lenght($full_name) ;;
+  }
+
+  dimension: Decade {
+   type: tier
+    tiers: [9,19,29,39,49,59,69,79,89,99]
+    style: classic
+    sql: ${TABLE}${age} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -98,6 +111,12 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+  measure:  average_age{
+    type: average
+    sql: ${age}  ;;
+  }
+
+
 
   measure: count {
     type: count
